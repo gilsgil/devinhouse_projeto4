@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,12 +38,11 @@ public class LoginController {
     String signUp(Model model, User user) {
         model.addAttribute("user", new User());
         userService.signUpUser(user);
-
         return "redirect:/sign-in";
     }
 
-    @GetMapping("/confirm")
-    String confirmMail(@RequestParam("token") String token) {
+    @GetMapping("/confirm/{token}")
+    String confirmMail(@PathVariable("token") String token) {
 
         Optional<ConfirmationToken> optionalConfirmationToken = confirmationTokenService.findConfirmationTokenByToken(token);
 

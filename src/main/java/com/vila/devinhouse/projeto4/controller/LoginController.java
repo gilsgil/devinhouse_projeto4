@@ -6,6 +6,7 @@ import com.vila.devinhouse.projeto4.service.ConfirmationTokenService;
 import com.vila.devinhouse.projeto4.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,14 +28,14 @@ public class LoginController {
     }
 
     @GetMapping("/sign-up")
-    String signUp() {
-
+    String signUp(Model model) {
+        model.addAttribute("user", new User());
         return "sign-up";
     }
 
     @PostMapping("/sign-up")
-    String signUp(User user) {
-
+    String signUp(Model model, User user) {
+        model.addAttribute("user", new User());
         userService.signUpUser(user);
 
         return "redirect:/sign-in";

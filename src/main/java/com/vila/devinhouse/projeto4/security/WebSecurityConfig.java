@@ -26,12 +26,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/habitante/create", "/habitante/delete").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                .antMatchers("/sign-up/**", "/sign-in/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
-                .formLogin().permitAll()
-                .and()
-                .logout().permitAll();
+                .formLogin()
+                .loginPage("/sign-in")
+                .permitAll();
     }
 
     @Autowired

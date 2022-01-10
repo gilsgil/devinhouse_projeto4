@@ -12,7 +12,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 
-@Entity
+@Entity()
+@Table(name = "Users")
 public class User implements UserDetails {
 
     @Id

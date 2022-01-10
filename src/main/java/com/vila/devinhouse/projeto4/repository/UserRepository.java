@@ -26,7 +26,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<UserDetailed> findFirstById(Long id);
 
     // Lista um usuário por seu CPF
-    Optional<User> findByCpf(String cpf);
+    Optional<User> findByEmail(String email);
 }
 
 interface UserIdAndName {

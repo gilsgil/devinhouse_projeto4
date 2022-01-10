@@ -12,8 +12,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 
-@Entity()
-@Table(name = "Users")
+@Entity
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -161,5 +161,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void setEnabled(boolean b) {
+        this.enabled = b;
     }
 }

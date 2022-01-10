@@ -22,15 +22,15 @@ public class UserService implements UserDetailsService {
     private ConfirmationTokenService confirmationTokenService;
 
     @Override
-    public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        final Optional<User> optionalUser = userRepository.findByCpf(cpf);
+        final Optional<User> optionalUser = userRepository.findByEmail(email);
 
         if (optionalUser.isPresent()) {
             return optionalUser.get();
         }
         else {
-            throw new UsernameNotFoundException(MessageFormat.format("Usuário com CPF {0} não encontrado.", cpf));
+            throw new UsernameNotFoundException(MessageFormat.format("Usuário com e-mail {0} não encontrado.", email));
         }
     }
 
@@ -49,5 +49,14 @@ public class UserService implements UserDetailsService {
     }
 
     public void confirmUser(ConfirmationToken confirmationToken) {
+
+        final User user = confirmationToken.getUser();
+
+        user.setEnabled(true);
+
+        userRepository.save(user);
+
+        confirmationTokenService.deleteConfirmationToken(confirmationToken.getId());
+
     }
 }
